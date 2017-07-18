@@ -3,7 +3,5 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\Domain.Core\Domain.Core.csproj" />
-	</ItemGroup>
+
 </Project>
