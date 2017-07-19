@@ -4,51 +4,95 @@ using Clientes.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Clientes.Data.Implementation
 {
     public class ClienteRepository : IRepository<Cliente>
     {
-        IRepository<Cliente> _repositorio;
-        public ClienteRepository(IRepository<Cliente> repository)
+        IMongoDatabase DbContext { get; }
+        string typeName = "BsonDocument";
+
+        public ClienteRepository()
         {
-            _repositorio = repository;
+            if (DbContext == null)
+                DbContext = MongoDBInstance.GetMongoDatabase;
         }
 
-
-        void IRepository<Cliente>.Adicionar(Cliente obj)
+        public async Task Adicionar(Cliente obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await DbContext.GetCollection<Cliente>(typeName).InsertOneAsync(obj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        void IRepository<Cliente>.Atualizar(Cliente obj)
+        public async Task Atualizar(Cliente obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Cliente>.Filter.Eq(x => x.Id, obj.Id);
+                var result = await DbContext.GetCollection<Cliente>(typeName)
+                                            .ReplaceOneAsync(filter, obj, new UpdateOptions { IsUpsert = true });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        IEnumerable<Cliente> IRepository<Cliente>.Buscar(Expression<Func<Cliente, bool>> predicate)
+        public async Task<IEnumerable<Cliente>> Buscar(Expression<Func<Cliente, bool>> predicate)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Cliente>.Filter.Where(predicate);
+                var collection = await DbContext.GetCollection<Cliente>(typeName).FindAsync(filter);
+                var retList = new List<Cliente>();
+
+                await collection.ForEachAsync((Cliente Entity) =>
+                {
+                    retList.Add(Entity);
+                });
+
+                return await Task.FromResult(retList);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        void IDisposable.Dispose()
+        public async Task<Cliente> ObterPorId(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Cliente>.Filter.Eq(x => x.Id, id);
+                return await DbContext.GetCollection<Cliente>(typeName).Find(filter).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        Cliente IRepository<Cliente>.ObterPorId(Guid id)
+        public async Task Remover(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        void IRepository<Cliente>.Remover(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IRepository<Cliente>.SaveChanges()
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var filter = Builders<Cliente>.Filter.Eq(x => x.Id, id);
+                var result = await DbContext.GetCollection<Cliente>(typeName).FindOneAndDeleteAsync(filter);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

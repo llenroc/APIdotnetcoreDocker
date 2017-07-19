@@ -6,9 +6,8 @@ using Domain.Core.Models;
 
 namespace Clientes.Domain.Entities
 {
-public class  Cliente : Entity
-{
-   
+    public class Cliente : Entity
+    {
         public Cliente(string nome, string cpf, DateTime dataNascimento, string numeroCartao)
         {
             Nome = nome;
@@ -16,7 +15,7 @@ public class  Cliente : Entity
             DataNascimento = dataNascimento;
             NumeroCartao = numeroCartao;
         }
-        
+
         public string Nome { get; private set; }
         public string CPF { get; private set; }
         public DateTime DataNascimento { get; private set; }
@@ -26,5 +25,5 @@ public class  Cliente : Entity
             throw new NotImplementedException();
         }
 
-}
+    }
 }
