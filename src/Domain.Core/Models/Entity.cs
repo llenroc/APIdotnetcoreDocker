@@ -1,15 +1,11 @@
 ﻿using System;
-
-
 namespace Domain.Core.Models
 {
     public abstract class Entity
     {
-
         public Guid Id { get; protected set; }
 
         public abstract bool EhValido();
-       
 
         public override bool Equals(object obj)
         {
