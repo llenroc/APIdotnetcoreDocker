@@ -4,15 +4,19 @@ using Clientes.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+<<<<<<< HEAD
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 using System.Linq;
+=======
+>>>>>>> 06565dc... Container de injeção de dependencia
 
 namespace Clientes.Data.Implementation
 {
     public class ClienteRepository : IRepository<Cliente>
     {
+<<<<<<< HEAD
         IMongoDatabase DbContext { get; }
         string typeName = "BsonDocument";
 
@@ -93,6 +97,48 @@ namespace Clientes.Data.Implementation
             {
                 throw ex;
             }
+=======
+        IRepository<Cliente> _repositorio;
+        public ClienteRepository(IRepository<Cliente> repository)
+        {
+            _repositorio = repository;
+        }
+
+
+        void IRepository<Cliente>.Adicionar(Cliente obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRepository<Cliente>.Atualizar(Cliente obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Cliente> IRepository<Cliente>.Buscar(Expression<Func<Cliente, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDisposable.Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        Cliente IRepository<Cliente>.ObterPorId(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRepository<Cliente>.Remover(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IRepository<Cliente>.SaveChanges()
+        {
+            throw new NotImplementedException();
+>>>>>>> 06565dc... Container de injeção de dependencia
         }
     }
 }
