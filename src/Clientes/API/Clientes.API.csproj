@@ -17,5 +17,6 @@
     <ProjectReference Include="..\..\CrossCutting\IoC\CrossCutting.IoC.csproj" />
     <ProjectReference Include="..\..\CrossCutting\Identity\CrossCutting.Identity.csproj" />
     <ProjectReference Include="..\Domain\Clientes.Domain.csproj" />
+    <ProjectReference Include="..\..\Core\Domain.Core.csproj" />
   </ItemGroup>
 </Project>
