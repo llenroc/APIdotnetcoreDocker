@@ -12,9 +12,10 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Clientes.Domain\Clientes.Domain.csproj" />
-    <ProjectReference Include="..\Clientes.Data\Clientes.Data.csproj" />
-    <ProjectReference Include="..\CrossCutting.IoC\CrossCutting.IoC.csproj" />
-    <ProjectReference Include="..\CrossCutting.Identity\CrossCutting.Identity.csproj" />
+    
+    <ProjectReference Include="..\Data\Clientes.Data.csproj" />
+    <ProjectReference Include="..\..\CrossCutting\IoC\CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\..\CrossCutting\Identity\CrossCutting.Identity.csproj" />
+    <ProjectReference Include="..\Domain\Clientes.Domain.csproj" />
   </ItemGroup>
 </Project>
