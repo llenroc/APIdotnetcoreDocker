@@ -73,7 +73,8 @@ namespace Clientes.Data.Implementation
         {
             try
             {
-                var filter = Builders<Cliente>.Filter.Eq(x => x.Id, id);
+                var objectId = ObjectId.Parse(id.ToString());
+                var filter = Builders<Cliente>.Filter.Eq(x => x.Id, objectId);
                 return await DbContext.GetCollection<Cliente>(typeName).Find(filter).FirstOrDefaultAsync();
             }
             catch (Exception ex)
@@ -86,7 +87,8 @@ namespace Clientes.Data.Implementation
         {
             try
             {
-                var filter = Builders<Cliente>.Filter.Eq(x => x.Id, id);
+                var objectId = ObjectId.Parse(id.ToString());                
+                var filter = Builders<Cliente>.Filter.Eq(x => x.Id, objectId);
                 var result = await DbContext.GetCollection<Cliente>(typeName).FindOneAndDeleteAsync(filter);
             }
             catch (Exception ex)
