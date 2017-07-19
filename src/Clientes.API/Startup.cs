@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using CrossCutting.IoC;
 
 namespace Clientes.API
 {
@@ -29,6 +30,8 @@ namespace Clientes.API
         {
             // Add framework services.
             services.AddMvc();
+
+            RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +41,11 @@ namespace Clientes.API
             loggerFactory.AddDebug();
 
             app.UseMvc();
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            NativeInjectorBootStrapper.RegisterServices(services);
         }
     }
 }
