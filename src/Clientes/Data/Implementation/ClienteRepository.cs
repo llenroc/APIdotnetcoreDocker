@@ -1,14 +1,13 @@
-using Domain.Core.Infrastructure;
-using Domain.Core.Interfaces;
-using Clientes.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using System.Threading.Tasks;
 using System.Linq;
+using MongoDB.Driver;
+using Domain.Core.Infrastructure;
+using Clientes.Domain.Entities;
 using Clientes.Data.Interfaces;
+using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace Clientes.Data.Implementation
 {

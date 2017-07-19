@@ -4,7 +4,8 @@ using MongoDB.Driver;
 namespace Domain.Core.Infrastructure
 {
     public class MongoDBInstance
-    {private static volatile MongoDBInstance instance;
+    {
+        private static volatile MongoDBInstance instance;
         private static object syncLock = new Object();
         const string connectionString = "mongodb://localhost:27017/";
         private static IMongoDatabase db = null;
@@ -17,7 +18,7 @@ namespace Domain.Core.Infrastructure
 
         public static IMongoDatabase GetMongoDatabase
         {
-            get 
+            get
             {
                 if (instance == null)
                 {
@@ -30,6 +31,6 @@ namespace Domain.Core.Infrastructure
 
                 return db;
             }
-        }            
+        }
     }
 }
