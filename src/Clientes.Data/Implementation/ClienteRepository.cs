@@ -87,7 +87,7 @@ namespace Clientes.Data.Implementation
         {
             try
             {
-                var objectId = ObjectId.Parse(id.ToString());                
+                var objectId = ObjectId.Parse(id.ToString());
                 var filter = Builders<Cliente>.Filter.Eq(x => x.Id, objectId);
                 var result = await DbContext.GetCollection<Cliente>(typeName).FindOneAndDeleteAsync(filter);
             }
