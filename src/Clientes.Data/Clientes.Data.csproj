@@ -1,26 +1,16 @@
-<<<<<<< HEAD
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-=======
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
 
->>>>>>> 06565dc... Container de injeção de dependencia
   <ItemGroup>
     <ProjectReference Include="..\Domain.Core\Domain.Core.csproj" />
     <ProjectReference Include="..\Clientes.Domain\Clientes.Domain.csproj" />
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
-=======
-
- 
-
->>>>>>> 06565dc... Container de injeção de dependencia
 </Project>
