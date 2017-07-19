@@ -1,9 +1,11 @@
 ﻿using System;
+using MongoDB.Bson;
+
 namespace Domain.Core.Models
 {
     public abstract class Entity
     {
-        public Guid Id { get; protected set; }
+        public ObjectId Id { get; protected set; }
 
         public abstract bool EhValido();
 
