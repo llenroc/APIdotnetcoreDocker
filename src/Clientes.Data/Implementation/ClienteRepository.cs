@@ -8,10 +8,11 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 using System.Linq;
+using Clientes.Data.Interfaces;
 
 namespace Clientes.Data.Implementation
 {
-    public class ClienteRepository : IRepository<Cliente>
+    public class ClienteRepository : IClienteRepository
     {
         IMongoDatabase DbContext { get; }
         string typeName = "BsonDocument";
@@ -69,11 +70,11 @@ namespace Clientes.Data.Implementation
             }
         }
 
-        public async Task<Cliente> ObterPorId(Guid id)
+        public async Task<Cliente> ObterPorId(string id)
         {
             try
             {
-                var objectId = ObjectId.Parse(id.ToString());
+                var objectId = ObjectId.Parse(id);
                 var filter = Builders<Cliente>.Filter.Eq(x => x.Id, objectId);
                 return await DbContext.GetCollection<Cliente>(typeName).Find(filter).FirstOrDefaultAsync();
             }
@@ -83,13 +84,49 @@ namespace Clientes.Data.Implementation
             }
         }
 
-        public async Task Remover(Guid id)
+        public async Task Remover(string id)
         {
             try
             {
-                var objectId = ObjectId.Parse(id.ToString());
+                var objectId = ObjectId.Parse(id);
                 var filter = Builders<Cliente>.Filter.Eq(x => x.Id, objectId);
                 var result = await DbContext.GetCollection<Cliente>(typeName).FindOneAndDeleteAsync(filter);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Cliente> GetMostRecentCliente()
+        {
+            try
+            {
+                var sort = Builders<Cliente>.Sort.Descending(x => x.Id);
+                var filter = new BsonDocument();
+                var result = DbContext.GetCollection<Cliente>(typeName).Find(filter);
+
+                return await result.Sort(sort).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<Cliente>> BuscarTodos()
+        {
+            try
+            {
+                var collection = DbContext.GetCollection<Cliente>(typeName).AsQueryable();
+                var retList = new List<Cliente>();
+
+                await collection.ForEachAsync((Cliente Entity) =>
+                {
+                    retList.Add(Entity);
+                });
+
+                return await Task.FromResult(retList);
             }
             catch (Exception ex)
             {

@@ -9,9 +9,11 @@ namespace Domain.Core.Interfaces
     public interface IRepository<T> where T : Entity
     {
         Task Adicionar(T obj);
-        Task<T> ObterPorId(Guid id);
+        Task<T> ObterPorId(string id);
         Task Atualizar(T obj);
-        Task Remover(Guid id);
+        Task Remover(string id);
         Task<IEnumerable<T>> Buscar(Expression<Func<T, bool>> predicate);
+
+        Task<IEnumerable<T>> BuscarTodos();
     }
 }
