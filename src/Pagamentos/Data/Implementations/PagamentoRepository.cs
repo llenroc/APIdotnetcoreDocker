@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Data.Interfaces;
 using Domain.Core.Infrastructure;
-using Domain.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Pagamentos.Data.Interfaces;
+using Pagamentos.Domain.Entities;
 
 namespace Data.Implementations
 {

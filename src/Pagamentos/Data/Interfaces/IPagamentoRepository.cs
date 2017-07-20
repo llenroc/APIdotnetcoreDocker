@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Domain.Core.Interfaces;
-using Domain.Entities;
+using Pagamentos.Domain.Entities;
 
-namespace Data.Interfaces
+namespace Pagamentos.Data.Interfaces
 {
     public interface IPagamentoRepository : IRepository<Pagamento>
     {
