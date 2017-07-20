@@ -4,29 +4,28 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Data.Interfaces;
 using Domain.Core.Infrastructure;
-using Domain.Core.Interfaces;
 using Domain.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Data.Implematations
+namespace Data.Implementations
 {
-    public class EstabelecimentoRepository : IEstabelecimentoRepository
+    public class PagamentoRepository : IPagamentoRepository
     {
         IMongoDatabase DbContext { get; }
         string typeName = "BsonDocument";
 
-        public EstabelecimentoRepository()
+        public PagamentoRepository()
         {
             if (DbContext == null)
                 DbContext = MongoDBInstance.GetMongoDatabase;
         }
 
-        public async Task Adicionar(Estabelecimento obj)
+        public async Task Adicionar(Pagamento obj)
         {
             try
             {
-                await DbContext.GetCollection<Estabelecimento>(typeName).InsertOneAsync(obj);
+                await DbContext.GetCollection<Pagamento>(typeName).InsertOneAsync(obj);
             }
             catch (Exception ex)
             {
@@ -34,12 +33,12 @@ namespace Data.Implematations
             }
         }
 
-        public async Task Atualizar(Estabelecimento obj)
+        public async Task Atualizar(Pagamento obj)
         {
             try
             {
-                var filter = Builders<Estabelecimento>.Filter.Eq(x => x.Id, obj.Id);
-                var result = await DbContext.GetCollection<Estabelecimento>(typeName)
+                var filter = Builders<Pagamento>.Filter.Eq(x => x.Id, obj.Id);
+                var result = await DbContext.GetCollection<Pagamento>(typeName)
                                             .ReplaceOneAsync(filter, obj, new UpdateOptions { IsUpsert = true });
             }
             catch (Exception ex)
@@ -48,15 +47,15 @@ namespace Data.Implematations
             }
         }
 
-        public async Task<IEnumerable<Estabelecimento>> Buscar(Expression<Func<Estabelecimento, bool>> predicate)
+        public async Task<IEnumerable<Pagamento>> Buscar(Expression<Func<Pagamento, bool>> predicate)
         {
             try
             {
-                var filter = Builders<Estabelecimento>.Filter.Where(predicate);
-                var collection = await DbContext.GetCollection<Estabelecimento>(typeName).FindAsync(filter);
-                var retList = new List<Estabelecimento>();
+                var filter = Builders<Pagamento>.Filter.Where(predicate);
+                var collection = await DbContext.GetCollection<Pagamento>(typeName).FindAsync(filter);
+                var retList = new List<Pagamento>();
 
-                await collection.ForEachAsync((Estabelecimento Entity) =>
+                await collection.ForEachAsync((Pagamento Entity) =>
                 {
                     retList.Add(Entity);
                 });
@@ -69,14 +68,14 @@ namespace Data.Implematations
             }
         }
 
-        public async Task<IEnumerable<Estabelecimento>> BuscarTodos()
+        public async Task<IEnumerable<Pagamento>> BuscarTodos()
         {
             try
             {
-                var collection = DbContext.GetCollection<Estabelecimento>(typeName).AsQueryable();
-                var retList = new List<Estabelecimento>();
+                var collection = DbContext.GetCollection<Pagamento>(typeName).AsQueryable();
+                var retList = new List<Pagamento>();
 
-                await collection.ForEachAsync((Estabelecimento Entity) =>
+                await collection.ForEachAsync((Pagamento Entity) =>
                 {
                     retList.Add(Entity);
                 });
@@ -89,13 +88,13 @@ namespace Data.Implematations
             }
         }
 
-        public async Task<Estabelecimento> ObterPorId(string id)
+        public async Task<Pagamento> ObterPorId(string id)
         {
             try
             {
                 var objectId = ObjectId.Parse(id);
-                var filter = Builders<Estabelecimento>.Filter.Eq(x => x.Id, objectId);
-                return await DbContext.GetCollection<Estabelecimento>(typeName).Find(filter).FirstOrDefaultAsync();
+                var filter = Builders<Pagamento>.Filter.Eq(x => x.Id, objectId);
+                return await DbContext.GetCollection<Pagamento>(typeName).Find(filter).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -108,8 +107,8 @@ namespace Data.Implematations
             try
             {
                 var objectId = ObjectId.Parse(id);
-                var filter = Builders<Estabelecimento>.Filter.Eq(x => x.Id, objectId);
-                var result = await DbContext.GetCollection<Estabelecimento>(typeName).FindOneAndDeleteAsync(filter);
+                var filter = Builders<Pagamento>.Filter.Eq(x => x.Id, objectId);
+                var result = await DbContext.GetCollection<Pagamento>(typeName).FindOneAndDeleteAsync(filter);
             }
             catch (Exception ex)
             {
@@ -117,13 +116,13 @@ namespace Data.Implematations
             }
         }
 
-        public async Task<Estabelecimento> ObterMaisRecente()
+        public async Task<Pagamento> ObterMaisRecente()
         {
             try
             {
-                var sort = Builders<Estabelecimento>.Sort.Descending(x => x.Id);
+                var sort = Builders<Pagamento>.Sort.Descending(x => x.Id);
                 var filter = new BsonDocument();
-                var result = DbContext.GetCollection<Estabelecimento>(typeName).Find(filter);
+                var result = DbContext.GetCollection<Pagamento>(typeName).Find(filter);
 
                 return await result.Sort(sort).FirstOrDefaultAsync();
             }
