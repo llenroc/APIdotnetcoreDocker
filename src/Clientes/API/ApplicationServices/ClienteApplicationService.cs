@@ -43,9 +43,9 @@ namespace Clientes.API.Services
             await _repository.Remover(id);
         }
 
-        public async Task<Cliente> GetMostRecentCliente()
+        public async Task<Cliente> ObterMaisRecente()
         {
-            return await _repository.GetMostRecentCliente();
+            return await _repository.ObterMaisRecente();
         }
 
         public async Task<IEnumerable<Cliente>> BuscarTodos()

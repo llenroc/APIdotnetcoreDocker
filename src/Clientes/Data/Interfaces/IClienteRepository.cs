@@ -6,6 +6,6 @@ namespace Clientes.Data.Interfaces
 {
     public interface IClienteRepository : IRepository<Cliente>
     {
-        Task<Cliente> GetMostRecentCliente();
+        Task<Cliente> ObterMaisRecente();
     }
 }

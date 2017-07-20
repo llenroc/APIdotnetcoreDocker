@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using CrossCutting.Identity.Authorization;
+using API.Helpers;
 
 namespace Clientes.API
 {
@@ -66,6 +67,7 @@ namespace Clientes.API
                .Build();
 
            options.Filters.Add(new AuthorizeFilter(policy));
+           options.Filters.Add(typeof(CustomExceptionFilter));
 
        });
 

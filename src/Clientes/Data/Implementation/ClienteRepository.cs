@@ -97,7 +97,7 @@ namespace Clientes.Data.Implementation
             }
         }
 
-        public async Task<Cliente> GetMostRecentCliente()
+        public async Task<Cliente> ObterMaisRecente()
         {
             try
             {

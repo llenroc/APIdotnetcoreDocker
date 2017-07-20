@@ -13,7 +13,7 @@ namespace Clientes.API.ApplicationServices
         Task Atualizar(Cliente obj);
         Task Remover(string id);
         Task<IEnumerable<Cliente>> Buscar(Expression<Func<Cliente, bool>> predicate);
-        Task<Cliente> GetMostRecentCliente();
+        Task<Cliente> ObterMaisRecente();
         Task<IEnumerable<Cliente>> BuscarTodos();
     }
 }

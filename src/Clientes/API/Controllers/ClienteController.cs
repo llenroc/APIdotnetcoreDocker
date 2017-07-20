@@ -29,7 +29,7 @@ namespace Clientes.API.Controllers
             try
             {
                 await _clienteService.Adicionar(customer);
-                var newCustomer = await _clienteService.GetMostRecentCliente();
+                var newCustomer = await _clienteService.ObterMaisRecente();
 
                 return CreatedAtRoute("GetCliente", new { id = newCustomer.Id }, newCustomer);
             }
