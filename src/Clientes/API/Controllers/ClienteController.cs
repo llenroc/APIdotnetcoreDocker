@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 using Clientes.API.ApplicationServices;
 using Clientes.Domain.Entities;
-using MongoDB.Bson;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
@@ -25,14 +24,14 @@ namespace Clientes.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody] Cliente customer)
+        public async Task<IActionResult> Insert([FromBody] Cliente cliente)
         {
-            if (customer == null)
+            if (cliente == null)
                 return BadRequest("Cliente precisa ser informado");
 
             try
             {
-                await _clienteService.Adicionar(customer);
+                await _clienteService.Adicionar(cliente);
                 var newCustomer = await _clienteService.ObterMaisRecente();
 
                 return CreatedAtRoute("GetCliente", new { id = newCustomer.Id }, newCustomer);

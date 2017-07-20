@@ -8,18 +8,10 @@ namespace Clientes.Domain.Entities
 {
     public class Cliente : Entity
     {
-        public Cliente(string nome, string cpf, DateTime dataNascimento, string numeroCartao)
-        {
-            Nome = nome;
-            CPF = cpf;
-            DataNascimento = dataNascimento;
-            NumeroCartao = numeroCartao;
-        }
-
-        public string Nome { get; private set; }
-        public string CPF { get; private set; }
-        public DateTime DataNascimento { get; private set; }
-        public string NumeroCartao { get; private set; }
+        public string Nome { get; set; }
+        public string CPF { get; set; }
+        public DateTime DataNascimento { get; set; }
+        public string NumeroCartao { get; set; }
         public override bool EhValido()
         {
             throw new NotImplementedException();

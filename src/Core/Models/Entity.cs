@@ -1,11 +1,14 @@
 ﻿using System;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain.Core.Models
 {
     public abstract class Entity
     {
-        public ObjectId Id { get; protected set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
         public abstract bool EhValido();
 
