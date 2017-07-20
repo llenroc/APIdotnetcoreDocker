@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Clientes.API.ApplicationServices;
 using Clientes.Domain.Entities;
 using MongoDB.Bson;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Clientes.API.Controllers
 {
@@ -107,6 +111,39 @@ namespace Clientes.API.Controllers
                 return NotFound();
 
             return new ObjectResult(customer);
+        }
+
+
+
+        [Route("Login")]
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] string login, string senha)
+        {
+            //TODO:Fazer login
+            var user = new Usuario(login, senha);
+            var token = await GetJwtSecurityToken(user);
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = token.ValidTo
+            });
+        }
+
+        private async Task<JwtSecurityToken> GetJwtSecurityToken(Usuario user)
+        {
+            //TODO: Carregar as claims do usuário
+            var clains = new List<Claim>();
+            clains.Add(new Claim("Nome", "Teste Nome"));
+            clains.Add(new Claim("Acesso", "Teste Acesso"));
+            clains.Add(new Claim("Tela", "Teste Tela"));
+            var token = new JwtSecurityToken(
+                            claims: clains,
+                            expires: DateTime.UtcNow.AddMinutes(1),
+                            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("authorizationkey")), SecurityAlgorithms.HmacSha256)
+
+                        );
+
+            return await Task.FromResult(token);
         }
     }
 }
