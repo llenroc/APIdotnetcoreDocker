@@ -1,4 +1,5 @@
 using API.Helpers;
+using CrossCutting.Identity.Authorization;
 using CrossCutting.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,7 @@ namespace Pagamentos.API
                 options.Filters.Add(typeof(CustomExceptionFilter));
             });
 
-            //services.AddAuthorization();
+            services.AddAuthorization();
             services.AddScoped<IPagamentoApplicationService, PagamentoApplicationService>();
             RegisterServices(services);
         }
@@ -43,6 +44,8 @@ namespace Pagamentos.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            var jwtOptions = new JwtTokenOptions(Configuration);
+            app.UseJwtBearerAuthentication(jwtOptions);
             app.UseMvc();
         }
 

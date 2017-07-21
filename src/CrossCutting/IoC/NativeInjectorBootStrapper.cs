@@ -1,6 +1,7 @@
 ﻿
 using Clientes.Data.Implementation;
 using Clientes.Data.Interfaces;
+using CrossCutting.Identity.Authorization;
 using Data.Implematations;
 using Data.Implementations;
 using Data.Interfaces;
@@ -16,6 +17,7 @@ namespace CrossCutting.IoC
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
 			services.AddScoped<IPagamentoRepository, PagamentoRepository>();
-		}
+            services.AddScoped<ICustomJwtSecurityToken, CustomJwtSecurityToken>();
+        }
     }
 }

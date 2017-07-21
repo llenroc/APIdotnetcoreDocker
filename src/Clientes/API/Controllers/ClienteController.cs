@@ -10,20 +10,26 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using CrossCutting.Identity.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Clientes.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class ClienteController : Controller
     {
         IClienteApplicationService _clienteService { get; }
+        private ICustomJwtSecurityToken _customJwtSecurityToken { get; }
 
-        public ClienteController(IClienteApplicationService clienteService)
+        public ClienteController(IClienteApplicationService clienteService, ICustomJwtSecurityToken customJwtSecurityToken)
         {
             _clienteService = clienteService;
+            _customJwtSecurityToken = customJwtSecurityToken;
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Insert([FromBody] Cliente cliente)
         {
             if (cliente == null)
@@ -33,7 +39,7 @@ namespace Clientes.API.Controllers
             {
                 await _clienteService.Adicionar(cliente);
                 var newCustomer = await _clienteService.ObterMaisRecente();
-
+                //Todo:Criar usuário com login e senha
                 return CreatedAtRoute("GetCliente", new { id = newCustomer.Id }, newCustomer);
             }
             catch (Exception ex)
@@ -116,6 +122,7 @@ namespace Clientes.API.Controllers
 
         [Route("Login")]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] string login, string senha)
         {
             //TODO:Fazer login
@@ -135,14 +142,8 @@ namespace Clientes.API.Controllers
             clains.Add(new Claim("Nome", "Teste Nome"));
             clains.Add(new Claim("Acesso", "Teste Acesso"));
             clains.Add(new Claim("Tela", "Teste Tela"));
-            var token = new JwtSecurityToken(
-                            claims: clains,
-                            expires: DateTime.UtcNow.AddMinutes(1),
-                            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("authorizationkey")), SecurityAlgorithms.HmacSha256)
-
-                        );
-
-            return await Task.FromResult(token);
+            var token = await _customJwtSecurityToken.GerarToken(clains);
+            return token;
         }
     }
 }

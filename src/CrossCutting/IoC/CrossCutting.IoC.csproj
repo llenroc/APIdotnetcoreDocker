@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="automapper" Version="5.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="1.0.2" />
@@ -17,5 +18,6 @@
     <ProjectReference Include="..\..\Estabelecimentos\Domain\Estabelecimentos.Domain.csproj" />
     <ProjectReference Include="..\..\Pagamentos\Data\Pagamentos.Data.csproj" />
     <ProjectReference Include="..\..\Pagamentos\Domain\Pagamentos.Domain.csproj" />
+    <ProjectReference Include="..\Identity\CrossCutting.Identity.csproj" />
   </ItemGroup>
 </Project>

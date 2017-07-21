@@ -1,27 +1,30 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Threading.Tasks;
+using  System.Text;
+using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Builder;
 
 namespace CrossCutting.Identity.Authorization
 {
-    public class JwtTokenOptions
+    public class JwtTokenOptions : JwtBearerOptions
     {
-        public string Issuer { get; set; }
+        public IConfigurationRoot Config { get; private set; }
+        public JwtTokenOptions(IConfigurationRoot config)
+        {
+             Config = config;
+            var section = Config.GetSection("Token");
+            Audience = section["Audience"];
+            AutomaticAuthenticate = Convert.ToBoolean( section["AutomaticAuthenticate"]);
+            TokenValidationParameters = new TokenValidationParameters
+            {
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(section["secretKey"])),
+                ValidateIssuer = Convert.ToBoolean(section["ValidateIssuer"]),
+                ValidIssuer = section["ValidIssuer"]
+            };
 
-        public string Subject { get; set; }
-
-        public string Audience { get; set; }
-
-        public DateTime NotBefore { get; set; } = DateTime.UtcNow;
-
-        public DateTime IssuedAt { get; set; } = DateTime.UtcNow;
-
-        public TimeSpan ValidFor { get; set; } = TimeSpan.FromHours(5);
-
-        public DateTime Expiration => IssuedAt.Add(ValidFor);
-
-        public Func<Task<string>> JtiGenerator => () => Task.FromResult(Guid.NewGuid().ToString());
-
-        public SigningCredentials SigningCredentials { get; set; }
+        }
     }
 }

@@ -8,6 +8,7 @@ using API.Helpers;
 using Clientes.API.ApplicationServices;
 using Clientes.API.Services;
 using System.Text;
+using CrossCutting.Identity.Authorization;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Clientes.API
@@ -46,20 +47,8 @@ namespace Clientes.API
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            var keyBytes = Encoding.UTF8.GetBytes("authorizationkey");
-            var jwtOptions = new JwtBearerOptions()
-            {
-                Audience = "http://localhost:5000/",
-                AutomaticAuthenticate = true,
-                TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "http://localhost:5000/",
-                    IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
-                },
-            };
 
+            var jwtOptions = new JwtTokenOptions(Configuration);
             app.UseJwtBearerAuthentication(jwtOptions);
             app.UseMvc();
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Helpers;
+using CrossCutting.Identity.Authorization;
 using CrossCutting.IoC;
 using Estabelecimentos.API.ApplicationServices;
 using Estabelecimentos.API.Services;
@@ -36,7 +37,7 @@ namespace Estabelecimentos.API
                 options.Filters.Add(typeof(CustomExceptionFilter));
             });
 
-            //services.AddAuthorization();
+            services.AddAuthorization();
             services.AddScoped<IEstabelecimentoApplicationService, EstabelecimentoApplicationService>();
             RegisterServices(services);
         }
@@ -47,6 +48,8 @@ namespace Estabelecimentos.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            var jwtOptions = new JwtTokenOptions(Configuration);
+            app.UseJwtBearerAuthentication(jwtOptions);
             app.UseMvc();
         }
 

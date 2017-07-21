@@ -11,10 +11,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Domain.Entities;
 using RestEase;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Estabelecimentos.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class EstabelecimentoController : Controller
     {
         IEstabelecimentoApplicationService _EstabelecimentoService { get; }

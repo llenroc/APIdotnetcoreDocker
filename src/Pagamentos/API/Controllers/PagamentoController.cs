@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Estabelecimentos.API;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pagamentos.API.ApplicationServices;
 using Pagamentos.Domain.Entities;
@@ -11,6 +12,7 @@ using Pagamentos.Domain.Entities;
 namespace Pagamentos.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class PagamentoController : Controller
     {
         IPagamentoApplicationService _PagamentoService { get; }
