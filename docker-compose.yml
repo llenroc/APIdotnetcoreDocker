@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  clientes.api:
+    image: clientes.api
+    build:
+      context: ./src/Clientes/API
+      dockerfile: Dockerfile
+
+  estabelecimentos.api:
+    image: estabelecimentos.api
+    build:
+      context: ./src/Estabelecimentos/API
+      dockerfile: Dockerfile
+
+  pagamentos.api:
+    image: pagamentos.api
+    build:
+      context: ./src/Pagamentos/API
+      dockerfile: Dockerfile

@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting.Identity", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting.IoC", "..\..\CrossCutting\IoC\CrossCutting.IoC.csproj", "{25CF004F-B217-4BF5-9DFD-860232093510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting.Identity", "..\..\CrossCutting.Identity\CrossCutting.Identity.csproj", "{C764258D-64F3-4413-AC90-253348831A0B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
