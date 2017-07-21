@@ -5,7 +5,7 @@ namespace Pagamentos.Domain.Entities
 {
     public class Pagamento : Entity
     {
-        public decimal Valor { get; set; }
+        public double Valor { get; set; }
         public DateTime Data { get; set; }
         public string ClienteID { get; set; }
         public string EstabelecimentoID { get; set; }

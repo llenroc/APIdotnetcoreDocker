@@ -3,14 +3,14 @@ using MongoDB.Driver;
 
 namespace Domain.Core.Infrastructure
 {
-    public class MongoDBInstance
+    public sealed class MongoDBInstance
     {
-        private static volatile MongoDBInstance instance;
-        private static object syncLock = new Object();
+        static volatile MongoDBInstance instance;
+        static object syncLock = new Object();
         const string connectionString = "mongodb://localhost:27017/";
-        private static IMongoDatabase db = null;
+        static IMongoDatabase db = null;
 
-        private MongoDBInstance()
+        MongoDBInstance()
         {
             var client = new MongoClient(connectionString);
             db = client.GetDatabase("ApiDotNetCoreDB");

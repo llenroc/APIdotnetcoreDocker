@@ -46,7 +46,7 @@ namespace Clientes.API.Controllers
         public async Task<IActionResult> Update([FromBody] Cliente customer)
         {
             if (customer == null)
-                return BadRequest("Customer precisa ser informado");
+                return BadRequest("Cliente precisa ser informado");
 
             try
             {
@@ -54,7 +54,7 @@ namespace Clientes.API.Controllers
                 var customerItem = await _clienteService.ObterPorId(_id);
 
                 if (customerItem == null)
-                    return NotFound("Customer não encontrado");
+                    return NotFound("Cliente não encontrado");
 
                 await _clienteService.Atualizar(customer);
                 return new NoContentResult();

@@ -13,7 +13,7 @@ namespace Data.Implementations
     public class PagamentoRepository : IPagamentoRepository
     {
         IMongoDatabase DbContext { get; }
-        string typeName = "BsonDocument";
+        string typeName = "Pagamento";
 
         public PagamentoRepository()
         {
@@ -92,8 +92,7 @@ namespace Data.Implementations
         {
             try
             {
-                var objectId = ObjectId.Parse(id);
-                var filter = Builders<Pagamento>.Filter.Eq(x => x.Id, objectId);
+                var filter = Builders<Pagamento>.Filter.Eq(x => x.Id, id);
                 return await DbContext.GetCollection<Pagamento>(typeName).Find(filter).FirstOrDefaultAsync();
             }
             catch (Exception ex)
@@ -106,8 +105,7 @@ namespace Data.Implementations
         {
             try
             {
-                var objectId = ObjectId.Parse(id);
-                var filter = Builders<Pagamento>.Filter.Eq(x => x.Id, objectId);
+                var filter = Builders<Pagamento>.Filter.Eq(x => x.Id, id);
                 var result = await DbContext.GetCollection<Pagamento>(typeName).FindOneAndDeleteAsync(filter);
             }
             catch (Exception ex)

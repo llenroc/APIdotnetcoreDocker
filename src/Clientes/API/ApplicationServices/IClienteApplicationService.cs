@@ -1,19 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Clientes.Domain.Entities;
+using Domain.Core;
 
 namespace Clientes.API.ApplicationServices
 {
-    public interface IClienteApplicationService
+    public interface IClienteApplicationService : IBaseApplicationService<Cliente>
     {
-        Task Adicionar(Cliente obj);
-        Task<Cliente> ObterPorId(string id);
-        Task Atualizar(Cliente obj);
-        Task Remover(string id);
-        Task<IEnumerable<Cliente>> Buscar(Expression<Func<Cliente, bool>> predicate);
-        Task<Cliente> ObterMaisRecente();
-        Task<IEnumerable<Cliente>> BuscarTodos();
     }
 }

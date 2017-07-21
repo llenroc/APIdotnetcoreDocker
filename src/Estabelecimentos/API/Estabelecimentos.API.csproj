@@ -6,13 +6,25 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="ApplicationServices\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.0.2" />
+    <PackageReference Include="RestEase" Version="1.4.1" />
   </ItemGroup>
   
   
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Estabelecimento.Data.csproj" />
+    <ProjectReference Include="..\Domain\Estabelecimentos.Domain.csproj" />
+    <ProjectReference Include="..\..\Core\Domain.Core.csproj" />
+    <ProjectReference Include="..\..\CrossCutting\Identity\CrossCutting.Identity.csproj" />
+    <ProjectReference Include="..\..\CrossCutting\IoC\CrossCutting.IoC.csproj" />
+  </ItemGroup>
 </Project>

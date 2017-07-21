@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Data.Interfaces;
 using Domain.Core.Infrastructure;
-using Domain.Core.Interfaces;
 using Domain.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -14,7 +13,7 @@ namespace Data.Implematations
     public class EstabelecimentoRepository : IEstabelecimentoRepository
     {
         IMongoDatabase DbContext { get; }
-        string typeName = "BsonDocument";
+        string typeName = "Estabelecimento";
 
         public EstabelecimentoRepository()
         {
@@ -93,8 +92,7 @@ namespace Data.Implematations
         {
             try
             {
-                var objectId = ObjectId.Parse(id);
-                var filter = Builders<Estabelecimento>.Filter.Eq(x => x.Id, objectId);
+                var filter = Builders<Estabelecimento>.Filter.Eq(x => x.Id, id);
                 return await DbContext.GetCollection<Estabelecimento>(typeName).Find(filter).FirstOrDefaultAsync();
             }
             catch (Exception ex)
@@ -107,8 +105,7 @@ namespace Data.Implematations
         {
             try
             {
-                var objectId = ObjectId.Parse(id);
-                var filter = Builders<Estabelecimento>.Filter.Eq(x => x.Id, objectId);
+                var filter = Builders<Estabelecimento>.Filter.Eq(x => x.Id, id);
                 var result = await DbContext.GetCollection<Estabelecimento>(typeName).FindOneAndDeleteAsync(filter);
             }
             catch (Exception ex)

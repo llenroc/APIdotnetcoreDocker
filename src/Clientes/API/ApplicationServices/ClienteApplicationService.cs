@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Clientes.API.ApplicationServices;
 using Clientes.Domain.Entities;
-using Clientes.Data.Implementation;
 using Clientes.Data.Interfaces;
 
 namespace Clientes.API.Services

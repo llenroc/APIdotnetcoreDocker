@@ -1,25 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CrossCutting.IoC;
-using CrossCutting.Identity;
-using CrossCutting.Identity.Data;
-
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using CrossCutting.Identity.Models;
-
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using CrossCutting.Identity.Authorization;
 using API.Helpers;
 using Clientes.API.ApplicationServices;
 using Clientes.API.Services;
@@ -45,21 +29,12 @@ namespace Clientes.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
-
             //  services.AddOptions();
             // Add framework services.
             services.AddMvc(options =>
-       {
-
-           // options.UseCentralRoutePrefix(new RouteAttribute("api/v{version}"));
-
-           options.Filters.Add(typeof(CustomExceptionFilter));
-
-       });
-
-
+                   {
+                       options.Filters.Add(typeof(CustomExceptionFilter));
+                   });
 
             services.AddAuthorization();
             services.AddScoped<IClienteApplicationService, ClienteApplicationService>();
@@ -82,7 +57,6 @@ namespace Clientes.API
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = "http://localhost:5000/",
                     IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
-
                 },
             };
 

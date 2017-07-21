@@ -14,7 +14,7 @@ namespace Clientes.Data.Implementation
     public class ClienteRepository : IClienteRepository
     {
         IMongoDatabase DbContext { get; }
-        string typeName = "BsonDocument";
+        string typeName = "Cliente";
 
         public ClienteRepository()
         {

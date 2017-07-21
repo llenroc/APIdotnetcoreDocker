@@ -1,11 +1,11 @@
 ﻿
 using Clientes.Data.Implementation;
 using Clientes.Data.Interfaces;
-using Clientes.Domain.Entities;
-using Domain.Core.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Data.Implematations;
+using Data.Implementations;
+using Data.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Pagamentos.Data.Interfaces;
 
 namespace CrossCutting.IoC
 {
@@ -13,9 +13,9 @@ namespace CrossCutting.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
-
             services.AddScoped<IClienteRepository, ClienteRepository>();
-
-        }
+            services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
+			services.AddScoped<IPagamentoRepository, PagamentoRepository>();
+		}
     }
 }

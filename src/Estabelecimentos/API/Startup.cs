@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Helpers;
+using CrossCutting.IoC;
+using Estabelecimentos.API.ApplicationServices;
+using Estabelecimentos.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +31,14 @@ namespace Estabelecimentos.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(CustomExceptionFilter));
+            });
+
+            //services.AddAuthorization();
+            services.AddScoped<IEstabelecimentoApplicationService, EstabelecimentoApplicationService>();
+            RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +48,11 @@ namespace Estabelecimentos.API
             loggerFactory.AddDebug();
 
             app.UseMvc();
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            NativeInjectorBootStrapper.RegisterServices(services);
         }
     }
 }

@@ -6,6 +6,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="ApplicationServices\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
   
   <ItemGroup>
@@ -17,7 +21,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Data\Pagamentos.Data.csproj" />
     <ProjectReference Include="..\Domain\Pagamentos.Domain.csproj" />
+    <ProjectReference Include="..\..\Core\Domain.Core.csproj" />
+    <ProjectReference Include="..\..\CrossCutting\IoC\CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\..\CrossCutting\Identity\CrossCutting.Identity.csproj" />
   </ItemGroup>
   
   
+  <ItemGroup>
+    <Compile Remove="Helpers\IReceitaWS.cs" />
+  </ItemGroup>
 </Project>
